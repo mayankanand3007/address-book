@@ -10,6 +10,14 @@ from contacts import Contact
 contact_instance = Contact()
 
 def add_contact_inputs():
+    """
+    Description:
+        Takes user input to add contact details of person in address book.
+    Parameter:
+        None
+    Return:
+        First Name of Contact added.
+    """
     print("Enter person details to add to Address Book.")
     f_name = input("Enter your first name: ")
     l_name = input("Enter your last name: ")
