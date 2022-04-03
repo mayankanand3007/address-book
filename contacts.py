@@ -18,3 +18,14 @@ class Contact:
         self.phone_no = phone_no
         self.email = email
         self.contacts.append({'f_name': f_name, 'l_name': l_name,'state': state, 'zip': zip, 'phone_no': phone_no, 'email': email})
+    
+    def edit_contact_fname(self, f_name, l_name, address, state, zip, phone_no, email):
+        contacts = self.contacts
+        for contact in range(len(contacts)):
+            if contacts[contact]["f_name"] ==  f_name:
+                contacts[contact]["l_name"] = l_name
+                contacts[contact]["address"] = address
+                contacts[contact]["state"] = state
+                contacts[contact]["zip"] = zip
+                contacts[contact]["phone_no"] = phone_no
+                contacts[contact]["email"] = email

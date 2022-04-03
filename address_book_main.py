@@ -27,18 +27,47 @@ def add_contact_inputs():
     phone_no = input("Enter your phone number: ")
     email = input("Enter your email address: ")
     contact_instance.add_contact(f_name, l_name, address, state, zip_code, phone_no, email)
-    return f_name
+    return f"{f_name} Contact added"
+
+
+def edit_contact_inputs():
+    """
+    Description:
+        Takes user input to edit contact details of person in address book.
+    Parameter:
+        None
+    Return:
+        First Name of Contact edited.
+    """
+    f_name = input("Enter first name of the person you want to edit in Address Book: ")
+    l_name = input("Enter last name: ")
+    address = input("Enter address: ")
+    state = input("Enter state: ")
+    zip_code = input("Enter zip code: ")
+    phone_no = input("Enter phone number: ")
+    email = input("Enter email address: ")
+    contact_instance.edit_contact_fname(f_name, l_name, address, state, zip_code, phone_no, email)
+    return f"{f_name} Contact edited"
 
 
 def main():
     while True:
         print("Welcome to Address Book Program")
-        print_stmts = ["Add Contact"]
+        print_stmts = ["Add Contact", "Edit Contact"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt+1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
-        operation_number = int(input("Enter the above number(1) to do the following operation: "))
-        print(f"{add_contact_inputs()} Contact adeed")
+        operation_number = int(input("Enter the above number(1-2) to do the following operation: "))
+        switcher = {
+            1: add_contact_inputs,
+            2: edit_contact_inputs
+        }
+        # Checks if input given by the user is between 1 and 2 else asks the input again.
+        if 0 < operation_number <= 2:
+            print(switcher.get(operation_number)())
+        else:
+            print("Invalid number entered. Please try again: ")
+            continue
         # Checks if user wants to end the loop of performing operations in Phone Book.
         if input('Do you want to check your Address Book again?(y/n): ') != 'y':
             break
