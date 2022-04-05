@@ -5,7 +5,6 @@
     @Last Modified time: 2022-04-05
     @Title : Testing ability to Add Contact in Address Book Program
 """
-from typing import Type
 import unittest as ut
 from contacts import Contact
 
