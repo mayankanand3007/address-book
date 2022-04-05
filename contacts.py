@@ -10,6 +10,21 @@ class Contact:
         self.contacts = []
 
     def add_contact(self, f_name, l_name, address, city, state, zip_code, phone_no, email):
+        """
+        Description:
+            Adds contact using given values of Person to be added as contact.
+        Parameter:
+            f_name: First name of the Person to be added as Contact.
+            l_name: Last name of the Person to be added as Contact.
+            address: Address of the Person to be added as Contact.
+            city: City of the Person to be added as Contact.
+            state: State of the Person to be added as Contact.
+            zip_code: Zip Code of the Person to be added as Contact.
+            phone_no: Phone Number of the Person to be added as Contact.
+            email: Email Address of the Person to be added as Contact.
+        Return:
+            Dictionary of the Contact added with key value pair of the Person details.
+        """
         if type(phone_no) != int:
             raise TypeError("The Phone Number can only be a number.")
         if type(zip_code) != int:
