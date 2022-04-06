@@ -10,8 +10,10 @@ class Contact:
         self.current_address_book = "default"
         self.contacts = {"default": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
         'city': 'Mayur Vihar Phase 1', 'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': 11, 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}]}
+        {'f_name': 11, 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
+        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}],
+        "book1": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
+        'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}]}
     
     def add_contact(self, f_name, l_name, address, city, state, zip_code, phone_no, email):
         """
@@ -113,6 +115,31 @@ class Contact:
         """
         contacts = self.contacts[self.current_address_book]
         return contacts
+
+    def search_contact(self, city_state, query):
+        """
+        Description:
+            Searches the given query with city_state containing boolean values for city/state query.
+        Parameter:
+            city_state: True if query is to be searched in the city and False if state is to be searched.
+            query: City/State value which needs to be searched by in Address Book.
+        Return:
+            Dictionary of Address Books containing searched contants having the same value as query.
+        """
+        if type(city_state) != bool:
+            raise TypeError
+        searched_contacts = {}
+        for address_book in self.contacts.keys():
+            searched_values = []
+            for contact in self.contacts[address_book]:
+                if city_state:
+                    if contact["city"] == query:
+                        searched_values.append(contact)
+                else:
+                    if contact["state"] == query:
+                        searched_values.append(contact)
+            searched_contacts[address_book] = searched_values
+        return searched_contacts
 
     def add_address_book(self, address_book_name):
         """
