@@ -26,11 +26,12 @@ def add_contact_inputs():
             break
         print("Please enter person details again which are not already there in Address Book.")
     address = input("Enter your address: ")
+    city = input("Enter your city: ")
     state = input("Enter your state: ")
-    zip_code = input("Enter your zip code: ")
+    zip_code = int(input("Enter your zip code: "))
     phone_no = int(input("Enter your phone number: "))
-    email = int(input("Enter your email address: "))
-    contact_instance.add_contact(f_name, l_name, address, state, zip_code, phone_no, email)
+    email = input("Enter your email address: ")
+    contact_instance.add_contact(f_name, l_name, address, city, state, zip_code, phone_no, email)
     return f"{f_name} Contact added."
 
 
@@ -105,6 +106,62 @@ def view_contacts():
         count += 1
     return contact_list
 
+def search_contact():
+    """
+    Description:
+        Displays contacts searched by city/state in the address book.
+    Parameter:
+        None
+    Return:
+        String containing contacts searched by city/state in the address book.
+    """
+    city_state = int(input("Enter 1 if you want to search Contact by City and 2 if you want to search by State: "))
+    if city_state == 1:
+        query = input("Enter City by which you want to search contact in Address Book: ")
+        searched_contacts = contact_instance.search_contact(True, query)
+    else:
+        query = input("Enter State by which you want to search contact in Address Book: ")
+        searched_contacts = contact_instance.search_contact(False, query)
+    return print_address_list(searched_contacts)
+
+def print_contact_list(contacts):
+    """
+    Description:
+        Returns string converted from given contact list.
+    Parameter:
+        contacts: given contacts to be converted to string.
+    Return:
+        String with Readable Contact List values for the user.
+    """
+    contact_list = ""
+    count = 1
+    for contact in contacts:
+        contact_list += f"Contact {count}\nFirst Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
+            f"Address: {contact['address']}, City: {contact['city']}, State: {contact['state']}, " \
+                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+        count += 1
+    return contact_list
+
+def print_address_list(address_list_contacts):
+    """
+    Description:
+        Returns string converted from given Dictionary of Address Book and their contact lists value pairs.
+    Parameter:
+        address_list_contacts: given dictionary with address book key having contact values to be converted to string.
+    Return:
+        String with Readable Address Book containing Contact List values for the user.
+    """
+    output_list = ""
+    count = 1
+    for address_book in address_list_contacts.keys():
+        output_list += f"\nAddress Book: {address_book}\n"
+        for contact in address_list_contacts[address_book]:
+            output_list += f"Contact {count}: First Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
+                f"Address: {contact['address']}, City: {contact['city']}, State: {contact['state']}, " \
+                    f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+            count += 1
+    return output_list
+
 
 def add_address_book():
     """
@@ -142,7 +199,7 @@ def main():
     while True:
         print("Welcome to Address Book Program")
         print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", "Display all Contacts",
-                         "Add Address Book", "Change Address Book"]
+                         "Search Contact by City/State", "Add Address Book", "Change Address Book"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
@@ -153,11 +210,12 @@ def main():
             3: edit_contact_inputs,
             4: delete_contact_inputs,
             5: view_contacts,
-            6: add_address_book,
-            7: change_address_book
+            6: search_contact,
+            7: add_address_book,
+            8: change_address_book
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
-        if 0 < operation_number <= 7:
+        if 0 < operation_number <= 8:
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
