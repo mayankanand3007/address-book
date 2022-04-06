@@ -84,7 +84,7 @@ class Contact:
         for contact in contacts:
             if contact["f_name"] == f_name:
                 contacts.remove(contact)
-        return f_name
+        return contacts
 
     def view_contacts(self):
         """
