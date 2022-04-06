@@ -116,6 +116,29 @@ class Contact:
         contacts = self.contacts[self.current_address_book]
         return contacts
 
+    def view_city_state(self, city_state):
+        """
+        Description:
+            Returns list cities or states as list if given city_state is True/False.
+        Parameter:
+            city_state: True if cities are to be fetched and False if states are to be fetched.
+        Return:
+            List of cities/states as per given city_state boolean value.
+        """
+        if type(city_state) != bool:
+            raise TypeError
+        contacts = self.contacts[self.current_address_book]
+        cities_states = []
+        if city_state:
+            for contact in contacts:
+                if contact["city"] not in cities_states:
+                    cities_states.append(contact["city"])
+        else:
+            for contact in contacts:
+                if contact["state"] not in cities_states:
+                    cities_states.append(contact["state"])
+        return cities_states
+
     def search_contact(self, city_state, query):
         """
         Description:
