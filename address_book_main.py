@@ -3,7 +3,7 @@
     @Date: 2022-04-01
     @Last Modified by: Mayank Anand
     @Last Modified time: 2022-04-06
-    @Title : Displaying Welcome, Adding single and multiple, Editing and Deleting Contact to Address Book Program
+    @Title : Displaying Welcome, Opertions on Contact, Adding and Changing Address Book to Address Book Program
 """
 from contacts import Contact
 
@@ -82,22 +82,78 @@ def delete_contact_inputs():
     return f"{f_name} Contact deleted."
 
 
+def view_contacts():
+    """
+    Description:
+        Displays all contacts in the address book.
+    Parameter:
+        None
+    Return:
+        String containing all contacts in the address book.
+    """
+    contacts = contact_instance.view_contacts()
+    contact_list = ""
+    count = 1
+    for contact in contacts:
+        contact_list += f"Contact {count}\nFirst Name: {contact['f_name']}, " \
+            f"Last Name: {contact['l_name']}, Address: {contact['address']}, State: {contact['state']}, " \
+                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+        count += 1
+    return contact_list
+
+
+def add_address_book():
+    """
+    Description:
+        Adds a separate address book to the address book data.
+    Parameter:
+        None
+    Return:
+        Name of address book added.
+    """
+    address_book = input("Enter name of the Address Book you want to add: ")
+    contact_instance.add_address_book(address_book)
+    return f"{address_book} Address Book added."
+
+
+def change_address_book():
+    """
+    Description:
+        Changes current address book to operate contacts on.
+    Parameter:
+        None
+    Return:
+        Name of address book changed to.
+    """
+
+    print("Avaiable Address Book Instances: ")
+    for address_books in contact_instance.view_address_books():
+        print(address_books)
+    address_book = input("Enter name of the Address Book you want to change to: ")
+    contact_instance.change_address_book(address_book)
+    return f"{address_book} Address Book updated."
+
+
 def main():
     while True:
         print("Welcome to Address Book Program")
-        print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact"]
+        print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", "Display all Contacts",
+                         "Add Address Book", "Change Address Book"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
-        operation_number = int(input("Enter the above number(1-4) to do the following operation: "))
+        operation_number = int(input("Enter the above number(1-7) to do the following operation: "))
         switcher = {
             1: add_contact_inputs,
             2: add_multiple_contact_inputs,
             3: edit_contact_inputs,
-            4: delete_contact_inputs
+            4: delete_contact_inputs,
+            5: view_contacts,
+            6: add_address_book,
+            7: change_address_book
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
-        if 0 < operation_number <= 4:
+        if 0 < operation_number <= 7:
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
