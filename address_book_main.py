@@ -19,8 +19,12 @@ def add_contact_inputs():
         First Name of Contact added.
     """
     print("Enter person details to add to Address Book.")
-    f_name = input("Enter your first name: ")
-    l_name = input("Enter your last name: ")
+    while True:
+        f_name = input("Enter your first name: ")
+        l_name = input("Enter your last name: ")
+        if not contact_instance.check_name(f_name, l_name):
+            break
+        print("Please enter person details again which are not already there in Address Book.")
     address = input("Enter your address: ")
     state = input("Enter your state: ")
     zip_code = input("Enter your zip code: ")
