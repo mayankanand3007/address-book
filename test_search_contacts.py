@@ -1,9 +1,9 @@
 """
     @Author: Mayank Anand
-    @Date: 2022-04-05
+    @Date: 2022-04-06
     @Last Modified by: Mayank Anand
-    @Last Modified time: 2022-04-05
-    @Title : Testing ability to Add Contact in Address Book Program
+    @Last Modified time: 2022-04-06
+    @Title : Testing ability to Search Contacts by City/State in Address Book Program
 """
 import unittest as ut
 from contacts import Contact
@@ -27,9 +27,9 @@ class TestSearchContacts(ut.TestCase):
         'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}]})
 
     def test_types(self):
-        # Checking if zip code is not numeric.
+        # Checking if First Parameter is not Boolean.
         self.assertRaises(TypeError, contact_instance.search_contact, "False", "Delhi")
-        # Checking if phone number is not numeric.
+        # Checking if other First Parameter is not Boolean.
         self.assertRaises(TypeError, contact_instance.search_contact, "True", "Mayur Vihar Phase 1")
 
 if __name__ == "__main__":
