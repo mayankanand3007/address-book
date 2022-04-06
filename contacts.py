@@ -37,6 +37,22 @@ class Contact:
         'city': city, 'state': state, 'address': address, 'zip': zip_code, 'phone_no': phone_no, 'email': email})
         return {'f_name': f_name, 'l_name': l_name, 
         'city': city, 'state': state, 'address': address, 'zip': zip_code, 'phone_no': phone_no, 'email': email}
+
+    def check_name(self, f_name, l_name):
+        """
+        Description:
+            Checks Person's First and Last Name if present in current Address Book.
+        Parameter:
+            f_name: First Name to be checked if present in current Address Book.
+            l_name: Last Name to be checked if present in current Address Book.
+        Return:
+            True if First Name and Last Name is Present in Current Address Book Already else False.
+        """
+        contacts = self.contacts[self.current_address_book]
+        for contact in contacts:
+            if (contact["f_name"] == f_name) and (contact["l_name"] == l_name):
+                return True
+        return False
     
     def edit_contact_fname(self, f_name, l_name, address, city, state, zip_code, phone_no, email):
         """
