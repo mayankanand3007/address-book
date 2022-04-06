@@ -124,6 +124,60 @@ def search_contact():
         searched_contacts = contact_instance.search_contact(False, query)
     return print_address_list(searched_contacts)
 
+def view_contacts_city_state():
+    """
+    Description:
+    
+    Parameter:
+    
+    Return:
+    
+    """
+    city_state = int(input("Enter 1 if you want to view Contacts by City and 2 if you want to view by State: "))
+    city_state = True if city_state == 1 else False
+    contacts = {}
+    if city_state:
+        cities = contact_instance.view_city_state(True)
+        for city in cities:
+            contacts[city] = []
+            contacts[city].extend(contact_instance.search_contact(True, city))
+    else:
+        states = contact_instance.view_city_state(False)
+        for state in states:
+            contacts[state] = []
+            contacts[state].extend(contact_instance.search_contact(False, state))
+    return print_contact_list_city_state(contacts, city_state)
+
+
+def print_contact_list_city_state(searched_contacts, city_state_bool):
+    """
+    Description:
+    
+    Parameter:
+        searched_contacts:
+        city_state_bool:
+    Return:
+    
+    """
+    contact_list = ""
+    count = 1
+    for city_state in searched_contacts:
+        if city_state_bool:
+            contact_list += f"City {city_state}\n"
+            for contact in searched_contacts[city_state]:
+                contact_list += f"Contact {count}: First Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
+                f"Address: {contact['address']}, State: {contact['state']}, " \
+                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                count += 1
+        else:
+            contact_list += f"State {city_state}\n"
+            for contact in searched_contacts[city_state]:
+                contact_list += f"Contact {count}: First Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
+                f"Address: {contact['address']}, City: {contact['city']}, " \
+                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                count += 1
+    return contact_list
+
 def print_contact_list(contacts):
     """
     Description:
@@ -198,8 +252,9 @@ def change_address_book():
 def main():
     while True:
         print("Welcome to Address Book Program")
-        print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", "Display all Contacts",
-                         "Search Contact by City/State", "Add Address Book", "Change Address Book"]
+        print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", 
+            "Display all Contacts", "Display Contacts by City/State", "Search Contact by City/State", 
+            "Add Address Book", "Change Address Book"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
@@ -210,12 +265,13 @@ def main():
             3: edit_contact_inputs,
             4: delete_contact_inputs,
             5: view_contacts,
-            6: search_contact,
-            7: add_address_book,
-            8: change_address_book
+            6: view_contacts_city_state,
+            7: search_contact,
+            8: add_address_book,
+            9: change_address_book
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
-        if 0 < operation_number <= 8:
+        if 0 < operation_number <= 9:
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
