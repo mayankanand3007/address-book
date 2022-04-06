@@ -23,11 +23,30 @@ def add_contact_inputs():
     l_name = input("Enter your last name: ")
     address = input("Enter your address: ")
     state = input("Enter your state: ")
-    zip_code = input("Enter your zip code: ")
-    phone_no = input("Enter your phone number: ")
+    zip_code = int(input("Enter your zip code: "))
+    phone_no = int(input("Enter your phone number: "))
     email = input("Enter your email address: ")
     contact_instance.add_contact(f_name, l_name, address, state, zip_code, phone_no, email)
     return f_name
+
+def view_contacts():
+    """
+    Description:
+        Displays all contacts in the address book.
+    Parameter:
+        None
+    Return:
+        String containing all contacts in the address book.
+    """
+    contacts = contact_instance.view_contacts()
+    contact_list = ""
+    count = 1
+    for contact in contacts:
+        contact_list += f"Contact {count}\nFirst Name: {contact['f_name']}, " \
+            f"Last Name: {contact['l_name']}, Address: {contact['address']}, State: {contact['state']}, " \
+                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+        count += 1
+    return contact_list
 
 
 def main():
