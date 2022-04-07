@@ -2,7 +2,7 @@
     @Author: Mayank Anand
     @Date: 2022-04-01
     @Last Modified by: Mayank Anand
-    @Last Modified time: 2022-04-06
+    @Last Modified time: 2022-04-07
     @Title : Displaying Welcome, Opertions on Contact, Adding and Changing Address Book to Address Book Program
 """
 from contacts import Contact
@@ -164,14 +164,35 @@ def view_city_state_count():
 def view_sorted_name_contacts():
     """
     Description:
-        Displays count by City/State in the current address book.
+        Displays Contacts sorted by Name in the current address book.
     Parameter:
         None.
     Return:
-        String containing count of cities/states in current address book.
+        String containing Contacts sorted by Name in current address book.
     """
     sorted_contacts = contact_instance.view_sorted_contacts_name()
     return print_contact_list(sorted_contacts)
+
+def view_sorted_city_state_zip_contacts():
+    """
+    Description:
+        Displays Contacts sorted by City, State or Zip Code in the current address book.
+    Parameter:
+        None.
+    Return:
+        String containing Contacts sorted by City, State or Zip Code in current address book.
+    """
+    city_state = int(input("Enter 1 if you want to view Contacts sorted by City , " \
+        "2 if you want contacts sorted by State and 3 if you want contacts sorted by Zip Code: "))
+    if city_state == "1":
+        sorted_contacts = contact_instance.view_sorted_contacts_city()
+        return print_contact_list(sorted_contacts)
+    elif city_state == "2":
+        sorted_contacts = contact_instance.view_sorted_contacts_state()
+        return print_contact_list(sorted_contacts)
+    else:
+        sorted_contacts = contact_instance.view_sorted_contacts_zip()
+        return print_contact_list(sorted_contacts)
 
 
 def print_contact_list_city_state(searched_contacts, city_state_bool):
@@ -279,8 +300,8 @@ def main():
         print("Welcome to Address Book Program")
         print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", 
             "Display all Contacts", "Display Contacts by City/State", "Display Count of City or State Contacts",
-            "Display Sorted Contacts by First Name and Last Name", "Search Contact by City/State", 
-            "Add Address Book", "Change Address Book"]
+            "Display Sorted Contacts by First Name and Last Name", "Display Sorted Contacts by City/State/Zip Code",
+            "Search Contact by City/State", "Add Address Book", "Change Address Book"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
@@ -294,12 +315,13 @@ def main():
             6: view_contacts_city_state,
             7: view_city_state_count,
             8: view_sorted_name_contacts,
-            9: search_contact,
-            10: add_address_book,
-            11: change_address_book
+            9: view_sorted_city_state_zip_contacts,
+            10: search_contact,
+            11: add_address_book,
+            12: change_address_book
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
-        if 0 < operation_number <= 10:
+        if 0 < operation_number <= 12:
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
