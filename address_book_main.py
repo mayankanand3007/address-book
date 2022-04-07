@@ -148,6 +148,25 @@ def view_contacts_city_state():
             contacts[state].extend(contact_instance.search_contact(False, state))
     return print_contact_list_city_state(contacts, city_state)
 
+def view_city_state_count():
+    """
+    Description:
+        Displays count by City/State in the current address book.
+    Parameter:
+        None.
+    Return:
+        String containing count of cities/states in current address book.
+    """
+    city_state = int(input("Enter 1 if you want to view Contacts by City and 2 if you want to view by State: "))
+    city_state = True if city_state == 1 else False
+    if city_state:
+        cities = contact_instance.view_city_state(True)
+        count = len(cities)
+        return f"Count of Cities: {count}"
+    else:
+        states = contact_instance.view_city_state(False)
+        count = len(states)
+        return f"Count of States: {count}"
 
 def print_contact_list_city_state(searched_contacts, city_state_bool):
     """
@@ -253,8 +272,8 @@ def main():
     while True:
         print("Welcome to Address Book Program")
         print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", 
-            "Display all Contacts", "Display Contacts by City/State", "Search Contact by City/State", 
-            "Add Address Book", "Change Address Book"]
+            "Display all Contacts", "Display Contacts by City/State", "Display Count of City or State Contacts",
+            "Search Contact by City/State", "Add Address Book", "Change Address Book"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
@@ -266,12 +285,13 @@ def main():
             4: delete_contact_inputs,
             5: view_contacts,
             6: view_contacts_city_state,
-            7: search_contact,
-            8: add_address_book,
-            9: change_address_book
+            7: view_city_state_count,
+            8: search_contact,
+            9: add_address_book,
+            10: change_address_book
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
-        if 0 < operation_number <= 9:
+        if 0 < operation_number <= 10:
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
