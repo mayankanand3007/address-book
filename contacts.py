@@ -32,3 +32,15 @@ class Contact:
         self.contacts.append({'f_name': f_name, 'l_name': l_name, 
         'city': city, 'state': state, 'address': address, 'zip_code': zip_code, 'phone_no': phone_no, 'email': email})
         return self.contacts
+
+    def view_contacts(self):
+        """
+        Description:
+            Returns Contacts available in the current Address Book.
+        Parameter:
+            None.
+        Return:
+            Contacts avaiable in the current Address Book.
+        """
+        contacts = self.contacts
+        return contacts
