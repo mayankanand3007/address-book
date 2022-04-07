@@ -14,17 +14,13 @@ contact_instance = Contact()
 class TestSearchContacts(ut.TestCase):
     def test_search_contact(self):
         # Checking correct input for city.
-        self.assertEqual(contact_instance.search_contact(True, "Mayur Vihar Phase 1"), 
-        {"default": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
-        'city': 'Mayur Vihar Phase 1', 'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}],
-        "book1": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
-        'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}]})
+        self.assertEqual(len(contact_instance.search_contact(True, "Mayur Vihar Phase 1").values()), 2)
         # Checking correct input for state.
-        self.assertNotEqual(contact_instance.search_contact(False, "Delhi"), 
-        {"default": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
-        'city': 'Mayur Vihar Phase 1', 'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': 11, 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}]})
+        self.assertEqual(len(contact_instance.search_contact(False, "Delhi").values()), 2)
+        # Checking not correct values for city.
+        self.assertNotEqual(len(contact_instance.search_contact(True, "Delhi").values()), 1)
+        # Checking not correct values for state.
+        self.assertNotEqual(len(contact_instance.search_contact(False, "Mayur Vihar Phase 1").values()), 1)
 
     def test_types(self):
         # Checking if First Parameter is not Boolean.
