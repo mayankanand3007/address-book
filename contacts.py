@@ -18,7 +18,7 @@ class Contact:
         # 'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
         # {'f_name': 'Neelesh', 'l_name': 'Rawat','address': 'Okhla', 
         # 'city': 'Lucknow', 'state': 'Uttar Pradesh', 'zip_code': 20091, 'phone_no': 9868474700, 'email': 'rawat9@gmail.com'}]}
-
+        self.contacts = self.read_txt()
     
     def add_contact(self, f_name, l_name, address, city, state, zip_code, phone_no, email):
         """
@@ -305,5 +305,5 @@ class Contact:
         """
         with open("address_book.txt","r") as ad_book:
             contacts = ad_book.read()
-            self.contacts = contact_dict = eval(contacts)
+            contact_dict = eval(contacts)
             return contact_dict
