@@ -13,21 +13,14 @@ contact_instance = Contact()
 
 class TestAddContact(ut.TestCase):
     def test_add_contact(self):
-        # Checking correct input
-        self.assertEqual(contact_instance.add_contact("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'})
-        # Checking data types input for zip code.
-        self.assertNotEqual(contact_instance.add_contact("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': '110091', 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'})
-        # Checking data types input for phone number.
-        self.assertNotEqual(contact_instance.add_contact("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': '9560291169', 'email': 'mayankan@gmail.com'})
+        # Checking correct input.
+        self.assertEqual(len(contact_instance.contacts)+1, 
+        len(contact_instance.add_contact("Mayank", "Anand", "B8, Acharya Niketan", "Mayur Vihar Phase 1", "Delhi", 
+        110091, 9560291169, "mayankan@gmail.com")))
+        # Checking if contact is added or not.
+        self.assertNotEqual(len(contact_instance.contacts), 
+        len(contact_instance.add_contact("Mayank", "Anand", "B8, Acharya Niketan", "Mayur Vihar Phase 1", "Delhi", 
+        110091, 9560291169, "mayankan@gmail.com")))
 
     def test_types(self):
         # Checking if zip code is not numeric.
