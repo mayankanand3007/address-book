@@ -54,7 +54,6 @@ class Contact:
         """
         contacts = self.contacts
         if type(phone_no) != int:
-            print(type(phone_no))
             raise TypeError("The Phone Number can only be a number.")
         if type(zip_code) != int:
             raise TypeError("The Zip Code can only be a number.")
@@ -67,8 +66,8 @@ class Contact:
                 contacts[contact]["zip_code"] = zip_code
                 contacts[contact]["phone_no"] = phone_no
                 contacts[contact]["email"] = email
-        print(self.contacts)
-        return self.contacts
+        return {'f_name': f_name, 'l_name': l_name,'address': address, 'city': city, 
+        'state': state, 'zip_code': zip_code, 'phone_no': phone_no, 'email': email}
 
     def view_contacts(self):
         """
