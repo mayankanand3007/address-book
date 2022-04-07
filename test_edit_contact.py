@@ -14,20 +14,11 @@ contact_instance = Contact()
 class TestEditContact(ut.TestCase):
     def test_edit_contact(self):
         # Checking correct input
-        self.assertEqual(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'})
-        # Checking data types input for zip code.
-        self.assertNotEqual(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': '110091', 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'})
-        # Checking data types input for phone number.
-        self.assertNotEqual(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': '9560291169', 'email': 'mayankan@gmail.com'})
+        self.assertTrue(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
+        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com") in contact_instance.contacts)
+        # Checking correct input for f_name not present.
+        self.assertFalse(contact_instance.edit_contact_fname("Neelesh", "Rawat", "B8, Acharya Niketan", 
+        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com") in contact_instance.contacts)
 
     def test_types(self):
         # Checking if zip code is not numeric.
