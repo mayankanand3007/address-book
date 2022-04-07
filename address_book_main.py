@@ -327,12 +327,14 @@ def main():
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
         if 0 < operation_number <= 12:
+            contact_instance.read_txt()
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
             continue
         # Checks if user wants to end the loop of performing operations in Phone Book.
         if input('Do you want to check your Address Book again?(y/n): ') != 'y':
+            contact_instance.write_txt()
             break
 
 if __name__ == "__main__":
