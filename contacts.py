@@ -23,13 +23,12 @@ class Contact:
             phone_no: Phone Number of the Person to be added as Contact.
             email: Email Address of the Person to be added as Contact.
         Return:
-            Dictionary of the Contact added with key value pair of the Person details.
+            Dictionary of the All Contacts after adding Person's Contact.
         """
         if type(phone_no) != int:
             raise TypeError("The Phone Number can only be a number.")
         if type(zip_code) != int:
             raise TypeError("The Zip Code can only be a number.")
         self.contacts.append({'f_name': f_name, 'l_name': l_name, 
-        'city': city, 'state': state, 'address': address, 'zip': zip_code, 'phone_no': phone_no, 'email': email})
-        return {'f_name': f_name, 'l_name': l_name, 
-        'city': city, 'state': state, 'address': address, 'zip': zip_code, 'phone_no': phone_no, 'email': email}
+        'city': city, 'state': state, 'address': address, 'zip_code': zip_code, 'phone_no': phone_no, 'email': email})
+        return self.contacts
