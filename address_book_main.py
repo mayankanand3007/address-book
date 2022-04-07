@@ -97,14 +97,7 @@ def view_contacts():
         String containing all contacts in the address book.
     """
     contacts = contact_instance.view_contacts()
-    contact_list = ""
-    count = 1
-    for contact in contacts:
-        contact_list += f"Contact {count}\nFirst Name: {contact['f_name']}, " \
-            f"Last Name: {contact['l_name']}, Address: {contact['address']}, State: {contact['state']}, " \
-                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
-        count += 1
-    return contact_list
+    return print_contact_list(contacts)
 
 def search_contact():
     """
@@ -167,6 +160,19 @@ def view_city_state_count():
         states = contact_instance.view_city_state(False)
         count = len(states)
         return f"Count of States: {count}"
+
+def view_sorted_name_contacts():
+    """
+    Description:
+        Displays count by City/State in the current address book.
+    Parameter:
+        None.
+    Return:
+        String containing count of cities/states in current address book.
+    """
+    sorted_contacts = contact_instance.view_sorted_contacts_name()
+    return print_contact_list(sorted_contacts)
+
 
 def print_contact_list_city_state(searched_contacts, city_state_bool):
     """
@@ -273,7 +279,8 @@ def main():
         print("Welcome to Address Book Program")
         print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", 
             "Display all Contacts", "Display Contacts by City/State", "Display Count of City or State Contacts",
-            "Search Contact by City/State", "Add Address Book", "Change Address Book"]
+            "Display Sorted Contacts by First Name and Last Name", "Search Contact by City/State", 
+            "Add Address Book", "Change Address Book"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
@@ -286,9 +293,10 @@ def main():
             5: view_contacts,
             6: view_contacts_city_state,
             7: view_city_state_count,
-            8: search_contact,
-            9: add_address_book,
-            10: change_address_book
+            8: view_sorted_name_contacts,
+            9: search_contact,
+            10: add_address_book,
+            11: change_address_book
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
         if 0 < operation_number <= 10:
