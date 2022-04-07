@@ -6,6 +6,7 @@
     @Title : Ability to operate Contact, adding and changing Address Book in Address Book Program
 """
 import csv
+import json
 from email import header
 
 class Contact:
@@ -338,3 +339,29 @@ class Contact:
             contacts_dict = {address_book : contacts}
             self.contacts[address_book] = contacts
             return contacts_dict
+
+    def write_json(self):
+        """
+        Description:
+            Writes contacts Dictionary containing all Address Books to Json File.
+        Parameter:
+            None.
+        Return
+            None.
+        """
+        with open("address_book.json", "w") as ad_book:
+            json.dump(self.contacts, ad_book, indent = 4)
+
+    def read_json(self):
+        """
+        Description:
+            Reads contacts Dictionary containing all Address Books from Json File.
+        Parameter:
+            None.
+        Return
+            Contacts Dictionary containing all Address Books from Json File.
+        """
+        with open("address_book.json", "r") as ad_book:
+            address_book = json.load(ad_book)
+            self.contacts = address_book
+            return address_book
