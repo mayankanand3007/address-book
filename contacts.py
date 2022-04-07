@@ -8,16 +8,17 @@
 class Contact:
     def __init__(self):
         self.current_address_book = "default"
-        self.contacts = {"default": [{'f_name': 'Mayank', 'l_name': 'Bhalla','address': 'B8, Acharya Niketan', 
-        'city': 'Mayur Vihar Phase 1', 'state': 'Uttar Pradesh', 'zip_code': 910091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': "Mayank", 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
-        'state': 'Delhi', 'zip_code': 210091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': "Mayank", 'l_name': 'Gupta','address': 'B8, Acharya Niketan', 'city': 'Okhla', 
-        'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}], 
-        "book1": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
-        'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': 'Neelesh', 'l_name': 'Rawat','address': 'Okhla', 
-        'city': 'Lucknow', 'state': 'Uttar Pradesh', 'zip_code': 20091, 'phone_no': 9868474700, 'email': 'rawat9@gmail.com'}]}
+        # self.contacts = {"default": [{'f_name': 'Mayank', 'l_name': 'Bhalla','address': 'B8, Acharya Niketan', 
+        # 'city': 'Mayur Vihar Phase 1', 'state': 'Uttar Pradesh', 'zip_code': 910091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
+        # {'f_name': "Mayank", 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
+        # 'state': 'Delhi', 'zip_code': 210091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
+        # {'f_name': "Mayank", 'l_name': 'Gupta','address': 'B8, Acharya Niketan', 'city': 'Okhla', 
+        # 'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}], 
+        # "book1": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
+        # 'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
+        # {'f_name': 'Neelesh', 'l_name': 'Rawat','address': 'Okhla', 
+        # 'city': 'Lucknow', 'state': 'Uttar Pradesh', 'zip_code': 20091, 'phone_no': 9868474700, 'email': 'rawat9@gmail.com'}]}
+
     
     def add_contact(self, f_name, l_name, address, city, state, zip_code, phone_no, email):
         """
@@ -280,3 +281,29 @@ class Contact:
             Available Address Books in the Address Book Program.
         """
         return list(self.contacts.keys())
+
+    def write_txt(self):
+        """
+        Description:
+            Writes contacts Dictionary containing all Address Books to Text File.
+        Parameter:
+            None.
+        Return
+            None.
+        """
+        with open("address_book.txt","w") as ad_book:
+            ad_book.write(str(self.contacts))
+
+    def read_txt(self):
+        """
+        Description:
+            Reads contacts Dictionary containing all Address Books from Text File.
+        Parameter:
+            None.
+        Return
+            Contacts Dictionary containing all Address Books from Text File.
+        """
+        with open("address_book.txt","r") as ad_book:
+            contacts = ad_book.read()
+            self.contacts = contact_dict = eval(contacts)
+            return contact_dict
