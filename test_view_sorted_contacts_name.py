@@ -15,16 +15,16 @@ class TestSortedContactsName(ut.TestCase):
     def test_view_sorted_contacts_name(self):
         # Checking correct input.
         self.assertEqual(contact_instance.view_sorted_contacts_name(), 
-        [{'f_name': '11', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}])
+        [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
+        'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
+        {'f_name': 'Mayank', 'l_name': 'Bhalla','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
+        'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}])
         # Checking of List is not sorted
         self.assertNotEqual(contact_instance.view_sorted_contacts_name(),
-        [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': '11', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}])
+        [{'f_name': 'Mayank', 'l_name': 'Bhalla','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
+        'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
+        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
+        'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}])
 
 if __name__ == "__main__":
     ut.main()

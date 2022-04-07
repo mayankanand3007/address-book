@@ -14,9 +14,9 @@ contact_instance = Contact()
 class TestAvailableAddressBooks(ut.TestCase):
     def test_available_address_books(self):
         # Checking correct output
-        self.assertEqual(contact_instance.view_address_books(), "default")
+        self.assertEqual(contact_instance.view_address_books(), ["default", "book1"])
         # Checking incorrect output
-        self.assertNotEqual(contact_instance.view_address_books(), "")
+        self.assertNotEqual(contact_instance.view_address_books(), [""])
 
 if __name__ == "__main__":
     ut.main()
