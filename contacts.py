@@ -2,7 +2,7 @@
     @Author: Mayank Anand
     @Date: 2022-04-01
     @Last Modified by: Mayank Anand
-    @Last Modified time: 2022-04-06
+    @Last Modified time: 2022-04-07
     @Title : Ability to operate Contact, adding and changing Address Book in Address Book Program
 """
 class Contact:
@@ -126,7 +126,46 @@ class Contact:
             Sorted Contacts by f_name and l_name avaiable in the current Address Book.
         """
         contacts = self.contacts[self.current_address_book]
-        sorted_contacts = sorted(contacts, key = lambda x: x.get("f_name"))
+        sorted_contacts = sorted(contacts, key = lambda x: x[["f_name", "l_name"]])
+        return sorted_contacts
+
+    def view_sorted_contacts_city(self):
+        """
+        Description:
+            Returns sorted Contacts by city available in the current Address Book.
+        Parameter:
+            None.
+        Return:
+            Sorted Contacts by city avaiable in the current Address Book.
+        """
+        contacts = self.contacts[self.current_address_book]
+        sorted_contacts = sorted(contacts, key = lambda x: x["city"])
+        return sorted_contacts
+
+    def view_sorted_contacts_state(self):
+        """
+        Description:
+            Returns sorted Contacts by state available in the current Address Book.
+        Parameter:
+            None.
+        Return:
+            Sorted Contacts by state avaiable in the current Address Book.
+        """
+        contacts = self.contacts[self.current_address_book]
+        sorted_contacts = sorted(contacts, key = lambda x: x["state"])
+        return sorted_contacts
+
+    def view_sorted_contacts_zip(self):
+        """
+        Description:
+            Returns sorted Contacts by zip code available in the current Address Book.
+        Parameter:
+            None.
+        Return:
+            Sorted Contacts by zip code avaiable in the current Address Book.
+        """
+        contacts = self.contacts[self.current_address_book]
+        sorted_contacts = sorted(contacts, key = lambda x: x["zip"])
         return sorted_contacts
 
     def view_city_state(self, city_state):
