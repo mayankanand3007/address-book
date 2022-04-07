@@ -5,20 +5,14 @@
     @Last Modified time: 2022-04-07
     @Title : Ability to operate Contact, adding and changing Address Book in Address Book Program
 """
+import csv
+from email import header
+
 class Contact:
     def __init__(self):
         self.current_address_book = "default"
-        # self.contacts = {"default": [{'f_name': 'Mayank', 'l_name': 'Bhalla','address': 'B8, Acharya Niketan', 
-        # 'city': 'Mayur Vihar Phase 1', 'state': 'Uttar Pradesh', 'zip_code': 910091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        # {'f_name': "Mayank", 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
-        # 'state': 'Delhi', 'zip_code': 210091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        # {'f_name': "Mayank", 'l_name': 'Gupta','address': 'B8, Acharya Niketan', 'city': 'Okhla', 
-        # 'state': 'Delhi', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}], 
-        # "book1": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
-        # 'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip_code': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        # {'f_name': 'Neelesh', 'l_name': 'Rawat','address': 'Okhla', 
-        # 'city': 'Lucknow', 'state': 'Uttar Pradesh', 'zip_code': 20091, 'phone_no': 9868474700, 'email': 'rawat9@gmail.com'}]}
-        self.contacts = self.read_txt()
+        self.contacts = {}
+        self.db_option = ""
     
     def add_contact(self, f_name, l_name, address, city, state, zip_code, phone_no, email):
         """
@@ -306,4 +300,41 @@ class Contact:
         with open("address_book.txt","r") as ad_book:
             contacts = ad_book.read()
             contact_dict = eval(contacts)
+            self.contacts = contact_dict
             return contact_dict
+
+    def write_csv(self):
+        """
+        Description:
+            Writes contacts Dictionary containing all Address Books to Separate Csv Files.
+        Parameter:
+            None.
+        Return
+            None.
+        """
+        contacts = self.contacts
+        for address_book in contacts:
+            if address_book != []:
+                file_name = address_book + ".csv"
+                with open(file_name, "w") as ad_book:
+                    book = csv.writer(ad_book)
+                    book.writerow(('f_name', 'l_name', 'address', 'city', 'state', 'zip_code', 'phone_no', 'email'))
+                    for row in contacts[address_book]:
+                        book.writerow((row['f_name'], row['l_name'], row['address'], row['city'], row['state'], 
+                        row['zip_code'], row['phone_no'], row['email']))
+
+    def read_csv(self, address_book):
+        """
+        Description:
+            Reads contacts Dictionary containing given Address Book name from CSV File.
+        Parameter:
+            address_book: Given Address Book to be fetched from CSV File of the same name.
+        Return
+            Contacts Dictionary containing given Address Books from CSV File.
+        """
+        file_name = address_book + ".csv"
+        with open(file_name, "r") as ad_book:
+            contacts = [row for row in csv.DictReader(ad_book)]
+            contacts_dict = {address_book : contacts}
+            self.contacts[address_book] = contacts
+            return contacts_dict
