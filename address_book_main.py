@@ -3,7 +3,7 @@
     @Date: 2022-04-01
     @Last Modified by: Mayank Anand
     @Last Modified time: 2022-04-07
-    @Title : Displaying Welcome, Opertions on Contact, Adding and Changing Address Book to Address Book Program
+    @Title : Displaying Welcome, Operations on Contact, Adding and Changing Address Book to Address Book Program
 """
 from contacts import Contact
 
@@ -65,12 +65,13 @@ def edit_contact_inputs():
     f_name = input("Enter first name of the person you want to edit in Address Book: ")
     l_name = input("Enter last name: ")
     address = input("Enter address: ")
+    city = input("Enter city: ")
     state = input("Enter state: ")
-    zip_code = input("Enter zip code: ")
-    phone_no = input("Enter phone number: ")
+    zip_code = int(input("Enter zip code: "))
+    phone_no = int(input("Enter phone number: "))
     email = input("Enter email address: ")
-    contact_instance.edit_contact_fname(f_name, l_name, address, state, zip_code, phone_no, email)
-    return f"{f_name} Contact edited."
+    contact_instance.edit_contact_fname(f_name, l_name, address, city, state, zip_code, phone_no, email)
+    return f"{f_name} Contact edited"
 
 
 def delete_contact_inputs():
@@ -133,12 +134,12 @@ def view_contacts_city_state():
         cities = contact_instance.view_city_state(True)
         for city in cities:
             contacts[city] = []
-            contacts[city].extend(contact_instance.search_contact(True, city))
+            contacts[city].extend(contact_instance.search_contact_current_address_book(True, city))
     else:
         states = contact_instance.view_city_state(False)
         for state in states:
             contacts[state] = []
-            contacts[state].extend(contact_instance.search_contact(False, state))
+            contacts[state].extend(contact_instance.search_contact_current_address_book(False, state))
     return print_contact_list_city_state(contacts, city_state)
 
 def view_city_state_count():
@@ -164,11 +165,11 @@ def view_city_state_count():
 def view_sorted_name_contacts():
     """
     Description:
-        Displays Contacts sorted by Name in the current address book.
+        Displays Contacts sorted by First Name and Last Name in the current address book.
     Parameter:
         None.
     Return:
-        String containing Contacts sorted by Name in current address book.
+        String containing sorted Contacts by name in current address book.
     """
     sorted_contacts = contact_instance.view_sorted_contacts_name()
     return print_contact_list(sorted_contacts)
@@ -184,10 +185,10 @@ def view_sorted_city_state_zip_contacts():
     """
     city_state = int(input("Enter 1 if you want to view Contacts sorted by City , " \
         "2 if you want contacts sorted by State and 3 if you want contacts sorted by Zip Code: "))
-    if city_state == "1":
+    if city_state == 1:
         sorted_contacts = contact_instance.view_sorted_contacts_city()
         return print_contact_list(sorted_contacts)
-    elif city_state == "2":
+    elif city_state == 2:
         sorted_contacts = contact_instance.view_sorted_contacts_state()
         return print_contact_list(sorted_contacts)
     else:
@@ -206,23 +207,25 @@ def print_contact_list_city_state(searched_contacts, city_state_bool):
         String with Readable City/State as key containing Contact List values for the user.
     """
     contact_list = ""
-    count = 1
     for city_state in searched_contacts:
         if city_state_bool:
             contact_list += f"City {city_state}\n"
+            count = 1
             for contact in searched_contacts[city_state]:
                 contact_list += f"Contact {count}: First Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
                 f"Address: {contact['address']}, State: {contact['state']}, " \
-                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                f"Zip Code: {contact['zip_code']}, \n Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
                 count += 1
         else:
             contact_list += f"State {city_state}\n"
+            count = 1
             for contact in searched_contacts[city_state]:
                 contact_list += f"Contact {count}: First Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
                 f"Address: {contact['address']}, City: {contact['city']}, " \
-                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                f"Zip Code: {contact['zip_code']}, \n Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
                 count += 1
     return contact_list
+
 
 def print_contact_list(contacts):
     """
@@ -238,7 +241,7 @@ def print_contact_list(contacts):
     for contact in contacts:
         contact_list += f"Contact {count}\nFirst Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
             f"Address: {contact['address']}, City: {contact['city']}, State: {contact['state']}, " \
-                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                f"Zip Code: {contact['zip_code']}, \n Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
         count += 1
     return contact_list
 
@@ -252,13 +255,15 @@ def print_address_list(address_list_contacts):
         String with Readable Address Book containing Contact List values for the user.
     """
     output_list = ""
-    count = 1
     for address_book in address_list_contacts.keys():
+        if address_list_contacts[address_book] == []:
+            continue
         output_list += f"\nAddress Book: {address_book}\n"
+        count = 1
         for contact in address_list_contacts[address_book]:
             output_list += f"Contact {count}: First Name: {contact['f_name']}, Last Name: {contact['l_name']}, " \
                 f"Address: {contact['address']}, City: {contact['city']}, State: {contact['state']}, " \
-                    f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                    f"Zip Code: {contact['zip_code']}, \n Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
             count += 1
     return output_list
 
@@ -305,7 +310,7 @@ def main():
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt + 1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
-        operation_number = int(input("Enter the above number(1-7) to do the following operation: "))
+        operation_number = int(input("Enter the above number(1-10) to do the following operation: "))
         switcher = {
             1: add_contact_inputs,
             2: add_multiple_contact_inputs,
