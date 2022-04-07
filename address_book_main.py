@@ -311,20 +311,25 @@ def use_csv():
         contact_instance.read_csv(csv_file_name)
     contact_instance.db_option = "csv"
 
+def use_json():
+    contact_instance.read_json()
+    contact_instance.db_option = "json"
+
 
 def main():
     while True:
         print("Welcome to Address Book Program")
         if contact_instance.db_option == "":
-            db_stmts = ["Using Text File", "Using CSV File"]
+            db_stmts = ["Using Text File", "Using CSV File", "Using JSON File"]
             for db_stmt in range(len(db_stmts)):
                 print(f"{db_stmt + 1} - {db_stmts[db_stmt]}")
-            db_number = int(input("Enter the above(1-2) value to retrieve and save from following options: "))
+            db_number = int(input("Enter the above(1-3) value to retrieve and save from following options: "))
             db_switch = {
                 1: use_txt,
-                2: use_csv
+                2: use_csv,
+                3: use_json
             }
-            if 0 < db_number <= 2:
+            if 0 < db_number <= 3:
                 db_switch.get(db_number)()
             else:
                 print("Invalid number entered. Please try again: ")
@@ -361,8 +366,10 @@ def main():
         if input('Do you want to check your Address Book again?(y/n): ') != 'y':
             if contact_instance.db_option == "text":
                 contact_instance.write_txt()
-            else:
+            elif contact_instance.db_option == "csv":
                 contact_instance.write_csv()
+            else:
+                contact_instance.write_json()
             break
 
 if __name__ == "__main__":
