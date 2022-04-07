@@ -291,7 +291,6 @@ def change_address_book():
     Return:
         Name of address book changed to.
     """
-
     print("Avaiable Address Book Instances: ")
     for address_books in contact_instance.view_address_books():
         print(address_books)
@@ -299,10 +298,37 @@ def change_address_book():
     contact_instance.change_address_book(address_book)
     return f"{address_book} Address Book updated."
 
+def use_txt():
+    contact_instance.read_txt()
+    contact_instance.db_option = "text"
+
+
+def use_csv():
+    contact_instance.read_csv("default")
+    no_of_csvs = int(input("Enter number of CSV Files you want to import(other than default.csv): "))
+    for csv in range(no_of_csvs):
+        csv_file_name = input("Enter the name of CSV file to be imported to Address Book: ")
+        contact_instance.read_csv(csv_file_name)
+    contact_instance.db_option = "csv"
+
 
 def main():
     while True:
         print("Welcome to Address Book Program")
+        if contact_instance.db_option == "":
+            db_stmts = ["Using Text File", "Using CSV File"]
+            for db_stmt in range(len(db_stmts)):
+                print(f"{db_stmt + 1} - {db_stmts[db_stmt]}")
+            db_number = int(input("Enter the above(1-2) value to retrieve and save from following options: "))
+            db_switch = {
+                1: use_txt,
+                2: use_csv
+            }
+            if 0 < db_number <= 2:
+                db_switch.get(db_number)()
+            else:
+                print("Invalid number entered. Please try again: ")
+                continue
         print_stmts = ["Add Contact", "Add Multiple Contacts", "Edit Contact", "Delete Contact", 
             "Display all Contacts", "Display Contacts by City/State", "Display Count of City or State Contacts",
             "Display Sorted Contacts by First Name and Last Name", "Display Sorted Contacts by City/State/Zip Code",
@@ -327,14 +353,16 @@ def main():
         }
         # Checks if input given by the user is between 1 and 4 else asks the input again.
         if 0 < operation_number <= 12:
-            contact_instance.read_txt()
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
             continue
         # Checks if user wants to end the loop of performing operations in Phone Book.
         if input('Do you want to check your Address Book again?(y/n): ') != 'y':
-            contact_instance.write_txt()
+            if contact_instance.db_option == "text":
+                contact_instance.write_txt()
+            else:
+                contact_instance.write_csv()
             break
 
 if __name__ == "__main__":
