@@ -2,7 +2,7 @@
     @Author: Mayank Anand
     @Date: 2022-04-05
     @Last Modified by: Mayank Anand
-    @Last Modified time: 2022-04-06
+    @Last Modified time: 2022-04-07
     @Title : Testing ability to Edit Contact in Address Book Program
 """
 import unittest as ut
@@ -14,20 +14,11 @@ contact_instance = Contact()
 class TestEditContact(ut.TestCase):
     def test_edit_contact(self):
         # Checking correct input
-        self.assertEqual(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'})
-        # Checking data types input for zip code.
-        self.assertNotEqual(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': '110091', 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'})
-        # Checking data types input for phone number.
-        self.assertNotEqual(contact_instance.edit_contact_fname("Mayank", "Anand", "B8, Acharya Niketan", 
-        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com"), 
-        {'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar Phase 1', 
-        'state': 'Delhi', 'zip': 110091, 'phone_no': '9560291169', 'email': 'mayankan@gmail.com'})
+        self.assertTrue(contact_instance.edit_contact_fname("Mayank", "Anand", "301, Pocket 5", "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com") in contact_instance.contacts[contact_instance.current_address_book])
+        # Checking correct input for f_name not present.
+        self.assertFalse(contact_instance.edit_contact_fname("Neelesh", "Rawat", "B8, Acharya Niketan", 
+        "Mayur Vihar Phase 1", "Delhi", 110091, 9560291169, "mayankan@gmail.com") in 
+        contact_instance.contacts[contact_instance.current_address_book])
 
     def test_types(self):
         # Checking if zip code is not numeric.
