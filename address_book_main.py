@@ -22,11 +22,12 @@ def add_contact_inputs():
     f_name = input("Enter your first name: ")
     l_name = input("Enter your last name: ")
     address = input("Enter your address: ")
+    city = input("Enter your city: ")
     state = input("Enter your state: ")
     zip_code = int(input("Enter your zip code: "))
     phone_no = int(input("Enter your phone number: "))
     email = input("Enter your email address: ")
-    contact_instance.add_contact(f_name, l_name, address, state, zip_code, phone_no, email)
+    contact_instance.add_contact(f_name, l_name, address, city, state, zip_code, phone_no, email)
     return f"{f_name} Contact added"
 
 
@@ -42,11 +43,12 @@ def edit_contact_inputs():
     f_name = input("Enter first name of the person you want to edit in Address Book: ")
     l_name = input("Enter last name: ")
     address = input("Enter address: ")
+    city = input("Enter city: ")
     state = input("Enter state: ")
-    zip_code = input("Enter zip code: ")
-    phone_no = input("Enter phone number: ")
+    zip_code = int(input("Enter zip code: "))
+    phone_no = int(input("Enter phone number: "))
     email = input("Enter email address: ")
-    contact_instance.edit_contact_fname(f_name, l_name, address, state, zip_code, phone_no, email)
+    contact_instance.edit_contact_fname(f_name, l_name, address, city, state, zip_code, phone_no, email)
     return f"{f_name} Contact edited"
 
 def view_contacts():
@@ -64,7 +66,7 @@ def view_contacts():
     for contact in contacts:
         contact_list += f"Contact {count}\nFirst Name: {contact['f_name']}, " \
             f"Last Name: {contact['l_name']}, Address: {contact['address']}, State: {contact['state']}, " \
-                f"Zip Code: {contact['zip']}, Phone No. {contact['phone_no']} and Email: {contact['email']}\n"
+                f"Zip Code: {contact['zip_code']}, \nPhone No. {contact['phone_no']} and Email: {contact['email']}\n"
         count += 1
     return contact_list
 
@@ -72,17 +74,18 @@ def view_contacts():
 def main():
     while True:
         print("Welcome to Address Book Program")
-        print_stmts = ["Add Contact", "Edit Contact"]
+        print_stmts = ["Add Contact", "Edit Contact", "Display all contacts"]
         for print_stmt in range(len(print_stmts)):
             print(f"{print_stmt+1} - {print_stmts[print_stmt]}")
         # Asks user for input from the above options.
-        operation_number = int(input("Enter the above number(1-2) to do the following operation: "))
+        operation_number = int(input("Enter the above number(1-3) to do the following operation: "))
         switcher = {
             1: add_contact_inputs,
-            2: edit_contact_inputs
+            2: edit_contact_inputs,
+            3: view_contacts,
         }
         # Checks if input given by the user is between 1 and 2 else asks the input again.
-        if 0 < operation_number <= 2:
+        if 0 < operation_number <= 3:
             print(switcher.get(operation_number)())
         else:
             print("Invalid number entered. Please try again: ")
