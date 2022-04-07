@@ -127,11 +127,11 @@ def search_contact():
 def view_contacts_city_state():
     """
     Description:
-    
+        Displays contacts by City/State as Key and other contact details as values.
     Parameter:
-    
+        None.
     Return:
-    
+        String of contact lists having key as city/state.
     """
     city_state = int(input("Enter 1 if you want to view Contacts by City and 2 if you want to view by State: "))
     city_state = True if city_state == 1 else False
@@ -152,12 +152,12 @@ def view_contacts_city_state():
 def print_contact_list_city_state(searched_contacts, city_state_bool):
     """
     Description:
-    
+        Returns string converted from given Dictionary of City/State as key and their contact lists value pairs.
     Parameter:
-        searched_contacts:
-        city_state_bool:
+        searched_contacts: given dictionary with address book key having contact values to be converted to string.
+        city_state_bool: True if cities are to be fetched and False if states are to be fetched.
     Return:
-    
+        String with Readable City/State as key containing Contact List values for the user.
     """
     contact_list = ""
     count = 1
