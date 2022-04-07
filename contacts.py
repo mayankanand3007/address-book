@@ -10,7 +10,7 @@ class Contact:
         self.current_address_book = "default"
         self.contacts = {"default": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
         'city': 'Mayur Vihar Phase 1', 'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'},
-        {'f_name': 11, 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
+        {'f_name': '11', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 'city': 'Mayur Vihar', 
         'state': 'Delhi', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}],
         "book1": [{'f_name': 'Mayank', 'l_name': 'Anand','address': 'B8, Acharya Niketan', 
         'city': 'Mayur Vihar Phase 1', 'state': 'HP', 'zip': 110091, 'phone_no': 9560291169, 'email': 'mayankan@gmail.com'}]}
@@ -115,6 +115,19 @@ class Contact:
         """
         contacts = self.contacts[self.current_address_book]
         return contacts
+
+    def view_sorted_contacts_name(self):
+        """
+        Description:
+            Returns sorted Contacts by f_name and l_name available in the current Address Book.
+        Parameter:
+            None.
+        Return:
+            Sorted Contacts by f_name and l_name avaiable in the current Address Book.
+        """
+        contacts = self.contacts[self.current_address_book]
+        sorted_contacts = sorted(contacts, key = lambda x: x.get("f_name"))
+        return sorted_contacts
 
     def view_city_state(self, city_state):
         """
